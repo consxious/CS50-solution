@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    // Read the first 4 bytes
+    // 1 block size = 512 Bytes
     BYTE buffer[BLOCK_SIZE];
 
     // Count image
@@ -39,11 +39,11 @@ int main(int argc, char *argv[])
     // Declare filename
     char filename[8];
 
-    // Read every first 4 bytes in 512 "blocks" till end of memory
+    // Read till end of memory
     // fread / fwrite can use &buffer / buffer
     while (fread(buffer, sizeof(BYTE), BLOCK_SIZE, input) == BLOCK_SIZE)
     {
-        // Check first 4 bytes for JPEG file format
+        // Check first 4 blocks for JPEG format
         if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff && (buffer[3] & 0xf0) == 0xe0)
         {
             // Only for first image, generate new filename and write into it
@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
                 // fwrite
                 fwrite(buffer, sizeof(BYTE), BLOCK_SIZE, output);
 
-                // Add filename counter
+                // Add counter
                 count_image++;
             }
 
@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
                 // fwrite
                 fwrite(buffer, sizeof(BYTE), BLOCK_SIZE, output);
 
-                // Add filename counter
+                // Add counter
                 count_image++;
             }
         }
