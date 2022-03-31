@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
     // Assign NULL to output_file
     FILE *output = NULL;
 
-    // Declare filename
+    // Declare filename size
     char filename[8];
 
     // Read till end of memory
